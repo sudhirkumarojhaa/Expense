@@ -97,7 +97,7 @@ const HistoryData = () => {
   const dataMint =
     database !== null ? database.map(item => item.totalPrice) : null;
 
-  const contentInset = {top: 20, bottom: 20, width: '100%', height: '100%'};
+  const contentInset = {top: 10, bottom: 10};
 
   const proValue = (totalAmount - totalPrice) / totalAmount;
 
@@ -107,8 +107,6 @@ const HistoryData = () => {
       : proValue >= 0.3
       ? colorCode.warning
       : 'red';
-
-  console.log(proValue);
 
   return (
     <SafeAreaView style={styles.container}>

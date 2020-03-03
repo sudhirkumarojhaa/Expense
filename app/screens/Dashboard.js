@@ -12,6 +12,7 @@ import {
   Modal,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
+import { Grid, BarChart } from 'react-native-svg-charts';
 import * as wpActions from '../store/actions';
 import {persistor} from '../store';
 import {AddButton, FloatButton, ListButton} from '../components/Button';
@@ -123,6 +124,10 @@ const Dashboard = () => {
   const totalPrice =
     isSelected !== null ? isSelected.map(Number).reduce((a, b) => a + b, 0) : 0;
 
+  const dataMint =
+    dailyExpense !== null ? dailyExpense.map(item => item.price) : null;
+
+  const contentInset = { top: 20, bottom: 15 }
   const proValue = (totalAmount - totalPrice) / totalAmount;
   const proColor =
     proValue >= 0.6
@@ -135,7 +140,7 @@ const Dashboard = () => {
     <SafeAreaView style={styles.container}>
       <View style={[styles.row, styles.between, styles.card]}>
         <View style={styles.center}>
-          <RowTitle title="Total Budget Amount" color={styles.white} />
+          <Text style={[styles.text, styles.white]}>Total Budget amount </Text>
           <View style={[styles.row, styles.center]}>
             <Text style={[styles.title, {color: colorCode.green}]}>
               &#8377;{totalAmount}
@@ -144,7 +149,7 @@ const Dashboard = () => {
           </View>
         </View>
         <View style={styles.center}>
-          <RowTitle title="Current Balance" color={styles.white} />
+          <Text style={[styles.text, styles.white]}>current balance</Text>
           <Text
             style={[
               styles.title,
@@ -192,14 +197,15 @@ const Dashboard = () => {
           </View>
         </Modal>
       </View>
-      <ScrollView style={[styles.ht, styles.pv]}>
+      <ScrollView style={[styles.ht, styles.pv,{marginBottom: 15}]}>
         <View>
           <RowTitle name="account-balance-wallet" title="Add Expense here" />
           <Input
             placeholder="Item Name"
+            placeholderTextColor="#D50000"
             value={name}
             onChangeText={text => setName(text)}
-            max={12}
+            max={15}
           />
           <Input
             placeholder="Item Price"
@@ -210,8 +216,17 @@ const Dashboard = () => {
           />
           <AddButton title="save item" name="add" onPress={() => saveData()} />
         </View>
+
         <RowTitle name="assignment" title="Recent Transactions" />
-        <View>
+        {dailyExpense.length !== 0 ?
+          <BarChart data={dataMint.map(Number)} style={styles.graph} svg={{
+            fill: colorCode.gray,
+          }}
+            contentInset={contentInset}>
+            <Grid />
+          </BarChart>
+
+          : null}
           {dailyExpense.length !== 0 ? (
             dailyExpense.map((item, index) => {
               const highlightColor = item.show ? 'gold' : colorCode.light;
@@ -245,7 +260,6 @@ const Dashboard = () => {
           ) : (
             <Nothing source={require('../design/bg.png')} />
           )}
-        </View>
       </ScrollView>
     </SafeAreaView>
   );
