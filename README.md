@@ -1,12 +1,12 @@
 # Expense
-## React Native application with  Redux Integration
+## React Native application with Redux Integration
 
 <img alt="Dashboard" src="https://mir-cdn.behance.net/v1/rendition/project_modules/max_1200/c27cb192809907.5e5509db57f61.png" width="300"> 
+
 <img alt="Expense" src="https://mir-cdn.behance.net/v1/rendition/project_modules/max_1200/bef09a92809907.5e5509db56e09.png" width="300">
 
 
-
-Expense is a mobile-ready, offline-storage, React Native powered application.
+### Expense is a mobile-ready, offline-storage, React Native powered application.
 
   - Log Expense
   - Pie chart with current balance
